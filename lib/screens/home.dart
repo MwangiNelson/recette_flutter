@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:recette_flutter/models/recipe_model.dart';
 import 'package:recette_flutter/screens/components/recipe_card.dart';
 import 'package:recette_flutter/screens/test.dart';
+import 'package:recette_flutter/screens/recipes_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -85,21 +86,23 @@ class _HomeState extends State<Home> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
+                        onTap: () => Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => RecipesPage())),
                         child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.purple.shade900,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      margin: const EdgeInsets.all(10.0),
-                      width: MediaQuery.of(context).size.width * 0.25,
-                      child: Center(
-                          child: Text(
-                        "All",
-                        style: GoogleFonts.sarabun(
-                            fontSize: 15.0, color: Colors.white),
-                      )),
-                    ));
+                          decoration: BoxDecoration(
+                            color: Colors.purple.shade900,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          margin: const EdgeInsets.all(10.0),
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: Center(
+                              child: Text(
+                            "All",
+                            style: GoogleFonts.sarabun(
+                                fontSize: 15.0, color: Colors.white),
+                          )),
+                        ));
                   }),
             ),
             const SizedBox(
@@ -235,6 +238,7 @@ class _HomeState extends State<Home> {
               title: recipe['title'].toString().toUpperCase(),
               url: recipe['image_url'],
               author: recipe['author'],
+              recipe: recipe,
             ),
           );
         },
@@ -261,6 +265,7 @@ class _HomeState extends State<Home> {
               title: recipe['title'].toString().toUpperCase(),
               url: recipe['image_url'],
               author: recipe['author'],
+              recipe: recipe,
             ),
           );
         },

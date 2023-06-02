@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^4.0.3
   http: ^0.13.6
   shimmer: ^2.0.0
+  flutter_material_pickers: ^3.5.0
 
 dev_dependencies:
   flutter_test:

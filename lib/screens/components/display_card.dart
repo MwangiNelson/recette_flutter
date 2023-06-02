@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:recette_flutter/screens/components/rounded_image.dart';
+import 'package:recette_flutter/screens/components/rounded_image_2.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:recette_flutter/screens/recipe_view.dart';
 import 'package:recette_flutter/screens/test.dart';
 
 // ignore: must_be_immutable
-class RecipeCard extends StatelessWidget {
+class DisplayCard extends StatelessWidget {
   final String url;
   final String title;
   final String author;
   Map<String, dynamic> recipe;
 
-  RecipeCard(
+  DisplayCard(
       {super.key,
       required this.url,
       required this.title,
@@ -37,7 +37,7 @@ class RecipeCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                RoundedImage(imageUrl: url),
+                RoundedImage2(imageUrl: url),
                 const SizedBox(
                   height: 10.0,
                 ),
@@ -57,11 +57,11 @@ class RecipeCard extends StatelessWidget {
                 SizedBox(
                   width: 200.0,
                   child: Text(
-                    "By $author",
+                    "$title",
                     style: GoogleFonts.sarabun(
-                      fontSize: 15.0,
-                      color: Colors.grey.shade800,
-                    ),
+                        fontSize: 15.0,
+                        color: Colors.grey.shade800,
+                        fontWeight: FontWeight.bold),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
