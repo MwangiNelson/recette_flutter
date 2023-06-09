@@ -41,16 +41,14 @@ class RecipeCard extends StatelessWidget {
                 const SizedBox(
                   height: 10.0,
                 ),
-                Flexible(
-                  child: Row(children: [
-                    Text(
-                      title,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.sarabun(
-                          fontSize: 20.0, fontWeight: FontWeight.bold),
-                    ),
-                  ]),
-                ),
+                Row(children: [
+                  Text(
+                    title,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.sarabun(
+                        fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                ]),
                 const SizedBox(
                   height: 5.0,
                 ),

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:recette_flutter/models/recipe_model.dart';
 import 'package:recette_flutter/screens/components/recipe_card.dart';
+import 'package:recette_flutter/screens/favorites.dart';
+import 'package:recette_flutter/screens/profile.dart';
 import 'package:recette_flutter/screens/test.dart';
 import 'package:recette_flutter/screens/recipes_page.dart';
 
@@ -30,6 +32,14 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    int _currentIndex = 0;
+
+    final List<Widget> _pages = [Profile(), Favorites()];
+
+    void _onItemTapped(int index) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => _pages[0]));
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -86,8 +96,10 @@ class _HomeState extends State<Home> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
-                        onTap: () => Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => RecipesPage())),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const RecipesPage())),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.purple.shade900,
@@ -130,7 +142,7 @@ class _HomeState extends State<Home> {
                                 onPressed: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (_) => const Test())),
+                                        builder: (_) => const RecipesPage())),
                                 child: const Text("See more"),
                               )
                             ],
@@ -196,6 +208,7 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color.fromRGBO(255, 189, 0, 1),
         elevation: 1,
+        onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor: Color.fromRGBO(255, 189, 0, 1),

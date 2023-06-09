@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:recette_flutter/screens/auth/login.dart';
 
-import '../../controllers/auth.dart';
+import 'package:provider/provider.dart';
 import '../components/my_button.dart';
 import '../components/my_textfield.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 class SignUp extends StatelessWidget {
   SignUp({super.key});
@@ -13,6 +16,61 @@ class SignUp extends StatelessWidget {
   final userEmailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  void signUp(BuildContext context) async {
+    var signUpUrl = "http://127.0.0.1:8000/api/sign-up";
+
+    var requestBody = {
+      'username': usernameController.text,
+      'email': userEmailController.text,
+      'password': passwordController.text,
+    };
+
+    var response = await http.post(Uri.parse(signUpUrl), body: requestBody);
+
+    if (response.statusCode == 200) {
+      // Handle successful sign up
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Sign Up Successful'),
+          content: const Text('You have successfully signed up.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => Login()),
+                ); // Navigate to the login screen
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      // Handle sign up failure
+      // You can display an error message or handle the specific error cases
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Sign Up Failed'),
+          content: const Text('An error occurred during sign up.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +130,20 @@ class SignUp extends StatelessWidget {
               const SizedBox(height: 25),
 
               // sign in button
-              const MyButton(
-                onTap: userSignUp,
-                buttonText: "Sign Up",
-              ),
-
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          foregroundColor: Colors.white),
+                      onPressed: () => signUp(context),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        child: Text(
+                          "SIGN UP",
+                          style: GoogleFonts.sarabun(fontSize: 20.0),
+                        ),
+                      ))),
 
               const SizedBox(height: 50),
 

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:recette_flutter/screens/auth/signup.dart';
 import 'package:recette_flutter/screens/home.dart';
 
 import '../../controllers/auth.dart';
+import '../../models/user_model.dart';
 import '../components/my_button.dart';
 import '../components/my_textfield.dart';
+import 'dart:convert' as convert;
+
+import 'package:http/http.dart' as http;
+import 'package:recette_flutter/controllers/user_provider.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -12,6 +18,37 @@ class Login extends StatelessWidget {
   // text editing controllers
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  
+  void authenticate(BuildContext context) async {
+  var authUrl = "http://127.0.0.1:8000/api/user/sign-in";
+
+  var requestBody = {
+    'email': usernameController.text,
+    'password': passwordController.text,
+  };
+
+  var response = await http.post(Uri.parse(authUrl), body: requestBody);
+
+  if (response.statusCode == 200) {
+    var responseData = convert.jsonDecode(response.body);
+
+    var user = User(
+      username: responseData['data']['user']['username'],
+      email: responseData['data']['user']['email'],
+    );
+
+    // ignore: use_build_context_synchronously
+    Provider.of<UserProvider>(context, listen: false).setUser(user);
+
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const Home()),
+    );
+  } else {
+    // Handle authentication failure
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +113,7 @@ class Login extends StatelessWidget {
 
               // sign in button
               MyButton(
-                onTap: () => Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => const Home())),
+                onTap: () => authenticate(context),
                 buttonText: "Sign In",
               ),
 
@@ -94,7 +130,6 @@ class Login extends StatelessWidget {
                         color: Colors.grey[400],
                       ),
                     ),
-                    
                   ],
                 ),
               ),
@@ -114,7 +149,7 @@ class Login extends StatelessWidget {
                   const SizedBox(width: 4),
                   GestureDetector(
                       onTap: () => Navigator.push(
-                          context, MaterialPageRoute(builder: (_) => SignUp())),
+                    context, MaterialPageRoute(builder: (_) => SignUp())),
                       child: const Text(
                         'Register now',
                         style: TextStyle(

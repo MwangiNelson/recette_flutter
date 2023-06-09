@@ -10,7 +10,7 @@ class RoundedImage2 extends StatelessWidget {
     Key? key,
     required this.imageUrl,
     this.width = 250.0,
-    this.height = 100.0,
+    this.height = 125.0,
   }) : super(key: key);
 
   @override

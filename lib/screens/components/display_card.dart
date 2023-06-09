@@ -41,25 +41,15 @@ class DisplayCard extends StatelessWidget {
                 const SizedBox(
                   height: 10.0,
                 ),
-                Flexible(
-                  child: Row(children: [
-                    Text(
-                      title,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.sarabun(
-                          fontSize: 20.0, fontWeight: FontWeight.bold),
-                    ),
-                  ]),
-                ),
                 const SizedBox(
                   height: 5.0,
                 ),
                 SizedBox(
                   width: 200.0,
                   child: Text(
-                    "$title",
+                    title,
                     style: GoogleFonts.sarabun(
-                        fontSize: 15.0,
+                        fontSize: 10.0,
                         color: Colors.grey.shade800,
                         fontWeight: FontWeight.bold),
                     overflow: TextOverflow.ellipsis,
