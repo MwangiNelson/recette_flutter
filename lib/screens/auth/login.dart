@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:recette_flutter/screens/auth/signup.dart';
 import 'package:recette_flutter/screens/home.dart';
 
-import '../../controllers/auth.dart';
 import '../../models/user_model.dart';
 import '../components/my_button.dart';
 import '../components/my_textfield.dart';

@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => UserProvider(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Recette Mobile',
         theme: ThemeData(
           // This is the theme of your application.

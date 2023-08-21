@@ -5,7 +5,6 @@ import 'package:recette_flutter/screens/auth/login.dart';
 import 'package:provider/provider.dart';
 import '../components/my_button.dart';
 import '../components/my_textfield.dart';
-import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
 class SignUp extends StatelessWidget {
@@ -18,7 +17,7 @@ class SignUp extends StatelessWidget {
   final confirmPasswordController = TextEditingController();
 
   void signUp(BuildContext context) async {
-    var signUpUrl = "http://127.0.0.1:8000/api/sign-up";
+    var signUpUrl = "http://127.0.0.1:8000/api/user/sign-up";
 
     var requestBody = {
       'username': usernameController.text,
@@ -51,8 +50,6 @@ class SignUp extends StatelessWidget {
         ),
       );
     } else {
-      // Handle sign up failure
-      // You can display an error message or handle the specific error cases
       // ignore: use_build_context_synchronously
       showDialog(
         context: context,
